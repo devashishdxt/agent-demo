@@ -1,0 +1,1750 @@
+<!doctype html>
+<html class="h-full bg-white dark:bg-gray-900">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/output.css" rel="stylesheet">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pinecone-router@7.2.0/dist/router.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
+</head>
+
+<body class="h-full">
+    <div class="h-full" x-data>
+        <template x-route="/" x-template>
+            <header class="absolute inset-x-0 top-0 z-40">
+                <nav aria-label="Global"
+                    class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8">
+                    <div class="flex lg:flex-1">
+                        <a href="/" class="-m-1.5 p-1.5">
+                            <span class="sr-only">Mesh Payments</span>
+                            <div class="flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor"
+                                    class="size-8 text-indigo-600 dark:text-indigo-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                </svg>
+                                <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                    Payments</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="flex lg:hidden">
+                        <button type="button" command="show-modal" commandfor="mobile-menu"
+                            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                            <span class="sr-only">Open main menu</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                data-slot="icon" aria-hidden="true" class="size-6">
+                                <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                        <a href="/login" class="text-sm/6 font-semibold text-gray-900 dark:text-white">Log in
+                            <span aria-hidden="true">&rarr;</span></a>
+                    </div>
+                </nav>
+                <el-dialog>
+                    <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+                        <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                            <el-dialog-panel
+                                class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10">
+                                <div class="flex items-center justify-between">
+                                    <a href="/" class="-m-1.5 p-1.5">
+                                        <span class="sr-only">Mesh Payments</span>
+                                        <div class="flex items-center">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor"
+                                                class="size-8 text-indigo-600 dark:text-indigo-500">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                            </svg>
+                                            <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                                Payments</span>
+                                        </div>
+                                    </a>
+                                    <button type="button" command="close" commandfor="mobile-menu"
+                                        class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                        <span class="sr-only">Close menu</span>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                            data-slot="icon" aria-hidden="true" class="size-6">
+                                            <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round"
+                                                stroke-linejoin="round" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </el-dialog-panel>
+                        </div>
+                    </dialog>
+                </el-dialog>
+            </header>
+
+            <section id="hero">
+                <div class="relative isolate px-6 pt-14 lg:px-8">
+                    <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+                        aria-hidden="true">
+                        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                        </div>
+                    </div>
+                    <div class="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56">
+                        <div class="text-center">
+                            <h1
+                                class="text-balance text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-6xl">
+                                Powering the Future of Cross-Border Remittances</h1>
+                            <h2
+                                class="mt-6 text-balance text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
+                                Secure, Fast, and Intuitive!</h2>
+                            <p class="mt-6 text-pretty text-lg leading-8 text-gray-600 dark:text-gray-400">A secure,
+                                all-in-one platform that helps remittance agencies manage transactions, compliance, and
+                                growth effortlessly.</p>
+                            <div class="mt-10 flex items-center justify-center gap-x-6">
+                                <a href="/login"
+                                    class="rounded-md bg-primary-600 dark:bg-primary-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-primary-500 dark:hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600 dark:focus-visible:outline-primary-400">Get
+                                    started</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+                        aria-hidden="true">
+                        <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </template>
+
+        <template x-route="/login" x-template>
+            <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+                <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+                    <a href="/" class="-m-1.5 p-1.5">
+                        <div class="grid place-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="h-10 w-auto text-indigo-600 dark:text-indigo-500">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                            </svg>
+                            <div class="pt-2 font-extrabold text-gray-900 dark:text-white">Mesh Payments</div>
+                        </div>
+                    </a>
+
+                    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">Sign
+                        in to your account</h2>
+                </div>
+
+                <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                    <form action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="username"
+                                class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">Username</label>
+                            <div class="mt-2">
+                                <input id="username" type="text" name="username" required autocomplete="username"
+                                    x-ref="username" @keyup.shift.space.window="setInputText($el, 'demo_agent')"
+                                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <label for="password"
+                                    class="block text-sm/6 font-medium text-gray-900 dark:text-gray-100">Password</label>
+                            </div>
+                            <div class="mt-2">
+                                <input id="password" type="password" name="password" required
+                                    autocomplete="current-password" x-ref="password"
+                                    @keyup.shift.space.window="setInputText($el, 'demo_agent', 250)"
+                                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <button type="button"
+                                @click="if ($refs.username.value === 'demo_agent' && $refs.password.value === 'demo_agent') { $router.navigate('/personal') } else { $refs.invalidCredentials.show() }"
+                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Sign
+                                in</button>
+                        </div>
+
+                        <el-dialog x-ref="invalidCredentials">
+                            <dialog id="dialog" aria-labelledby="dialog-title"
+                                class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+                                <el-dialog-backdrop
+                                    class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in dark:bg-gray-900/50"></el-dialog-backdrop>
+
+                                <div tabindex="0"
+                                    class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+                                    <el-dialog-panel
+                                        class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-sm sm:p-6 data-closed:sm:translate-y-0 data-closed:sm:scale-95 dark:bg-gray-800 dark:outline dark:-outline-offset-1 dark:outline-white/10">
+                                        <div>
+                                            <div
+                                                class="mx-auto flex size-12 items-center justify-center rounded-full bg-red-100 dark:bg-red-500/10">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="1.5" data-slot="icon" aria-hidden="true"
+                                                    class="size-6 text-red-600 dark:text-red-400">
+                                                    <path
+                                                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"
+                                                        stroke-linecap="round" stroke-linejoin="round" />
+                                                </svg>
+                                            </div>
+                                            <div class="mt-3 text-center sm:mt-5">
+                                                <h3 id="dialog-title"
+                                                    class="text-base font-semibold text-gray-900 dark:text-white">
+                                                    Invalid credentials</h3>
+                                                <div class="mt-2">
+                                                    <p class="text-sm text-gray-500 dark:text-gray-400">Please enter
+                                                        correct login credentials.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 sm:mt-6">
+                                            <button type="button" command="close" commandfor="dialog"
+                                                class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 dark:bg-red-500 dark:shadow-none dark:hover:bg-red-400 dark:focus-visible:outline-red-500">Go
+                                                back</button>
+                                        </div>
+                                    </el-dialog-panel>
+                                </div>
+                            </dialog>
+                        </el-dialog>
+                    </form>
+                </div>
+            </div>
+        </template>
+
+        <template x-route="/personal" x-template>
+            <div class="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+                <header class="bg-white dark:bg-gray-900">
+                    <nav aria-label="Global" class="flex items-center justify-between pb-12">
+                        <div class="flex lg:flex-1">
+                            <a href="/" class="-m-1.5 p-1.5">
+                                <span class="sr-only">Mesh Payments</span>
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="size-8 text-indigo-600 dark:text-indigo-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                    </svg>
+                                    <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                        Payments</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="flex lg:hidden">
+                            <button type="button" command="show-modal" commandfor="mobile-menu"
+                                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                <span class="sr-only">Open main menu</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    data-slot="icon" aria-hidden="true" class="size-6">
+                                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                            <a href="/login" class="text-sm/6 font-semibold text-gray-900 dark:text-white">Log out
+                                <span aria-hidden="true">&rarr;</span></a>
+                        </div>
+                    </nav>
+                    <el-dialog>
+                        <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+                            <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                                <el-dialog-panel
+                                    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10">
+                                    <div class="flex items-center justify-between">
+                                        <a href="/" class="-m-1.5 p-1.5">
+                                            <span class="sr-only">Mesh Payments</span>
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor"
+                                                    class="size-8 text-indigo-600 dark:text-indigo-500">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                                </svg>
+                                                <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                                    Payments</span>
+                                            </div>
+                                        </a>
+                                        <button type="button" command="close" commandfor="mobile-menu"
+                                            class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                            <span class="sr-only">Close menu</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </el-dialog-panel>
+                            </div>
+                        </dialog>
+                    </el-dialog>
+                </header>
+
+                <div class="mx-auto max-w-3xl">
+                    <div @keyup.shift.space.window="$dispatch('idprefill')"></div>
+                    <form>
+                        <div class="space-y-12">
+                            <div class="border-b border-gray-900/10 pb-12 dark:border-white/10">
+                                <h2 class="text-base/7 font-semibold text-gray-900 dark:text-white">Documents</h2>
+                                <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">Upload documents to prefill
+                                    your application.</p>
+                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div x-data="{ submitted: false }" class="sm:col-span-full">
+                                        <label for="id-document"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Identification
+                                            document</label>
+                                        <div
+                                            class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 dark:border-white/25">
+                                            <div class="text-center">
+                                                <div x-show="!submitted">
+                                                    <svg viewBox="0 0 24 24" fill="currentColor" data-slot="icon"
+                                                        aria-hidden="true"
+                                                        class="mx-auto size-12 text-gray-300 dark:text-gray-600">
+                                                        <path
+                                                            d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
+                                                            clip-rule="evenodd" fill-rule="evenodd" />
+                                                    </svg>
+                                                    <div class="mt-4 flex text-sm/6 text-gray-600 dark:text-gray-400">
+                                                        <button type="button" command="show-modal"
+                                                            commandfor="idDocDialog"
+                                                            class="relative cursor-pointer rounded-md bg-transparent font-semibold text-indigo-600 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:focus-within:outline-indigo-500 dark:hover:text-indigo-300">
+                                                            Upload a file
+                                                        </button>
+                                                        <p class="pl-1">or drag and drop</p>
+                                                    </div>
+                                                    <p class="text-xs/5 text-gray-600 dark:text-gray-400">PNG, JPG, GIF
+                                                        up
+                                                        to 10MB
+                                                    </p>
+                                                </div>
+                                                <div x-show="submitted">
+                                                    <div class="flex text-sm/6 text-gray-600 dark:text-gray-400">
+                                                        id_document.pdf
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <el-dialog>
+                                            <dialog id="idDocDialog" x-ref="idDocDialog" aria-labelledby="dialog-title"
+                                                class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+                                                <el-dialog-backdrop
+                                                    class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in dark:bg-gray-900/50"></el-dialog-backdrop>
+
+                                                <div tabindex="0"
+                                                    class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+                                                    <el-dialog-panel
+                                                        class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg sm:p-6 data-closed:sm:translate-y-0 data-closed:sm:scale-95 dark:bg-gray-800 dark:outline dark:-outline-offset-1 dark:outline-white/10">
+                                                        <div>
+                                                            <div
+                                                                class="mx-auto flex size-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/10">
+                                                                <svg viewBox="0 0 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    data-slot="icon" aria-hidden="true"
+                                                                    class="size-6 text-green-600 dark:text-green-400">
+                                                                    <path d="m4.5 12.75 6 6 9-13.5"
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round" />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="mt-3 text-center sm:mt-5">
+                                                                <h3 id="dialog-title"
+                                                                    class="text-base font-semibold text-gray-900 dark:text-white">
+                                                                    Document uploaded</h3>
+                                                                <div class="mt-2">
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        We'll pre-fill your application with the
+                                                                        information from your document.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                                                            <button type="button" command="close"
+                                                                commandfor="idDocDialog"
+                                                                @click="$dispatch('idprefill'); submitted = true;"
+                                                                class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Ok</button>
+                                                            <button type="button" command="close"
+                                                                commandfor="idDocDialog"
+                                                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0 dark:bg-white/10 dark:text-white dark:shadow-none dark:inset-ring-white/5 dark:hover:bg-white/20">Cancel</button>
+                                                        </div>
+                                                    </el-dialog-panel>
+                                                </div>
+                                            </dialog>
+                                        </el-dialog>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-b border-gray-900/10 pb-12 dark:border-white/10">
+                                <h2 class="text-base/7 font-semibold text-gray-900 dark:text-white">Personal Information
+                                </h2>
+                                <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">Provide sender's personal
+                                    information.</p>
+
+                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div class="sm:col-span-3">
+                                        <label for="first-name"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">First
+                                            name</label>
+                                        <div class="mt-2">
+                                            <input id="first-name" type="text" name="first-name"
+                                                autocomplete="given-name" @idprefill.window="setInputText($el, 'John')"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <label for="last-name"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Last
+                                            name</label>
+                                        <div class="mt-2">
+                                            <input id="last-name" type="text" name="last-name"
+                                                autocomplete="family-name"
+                                                @idprefill.window="setInputText($el, 'Doe', 80)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-4">
+                                        <label for="email"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Email
+                                            address</label>
+                                        <div class="mt-2">
+                                            <input id="email" type="email" name="email" autocomplete="email"
+                                                @idprefill.window="setInputText($el, 'john.doe@example.com', 140)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <label for="country"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Country</label>
+                                        <div class="mt-2 grid grid-cols-1">
+                                            <select id="country" name="country" autocomplete="country-name"
+                                                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:*:bg-gray-800 dark:focus:outline-indigo-500">
+                                                <option>Singapore</option>
+                                            </select>
+                                            <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon"
+                                                aria-hidden="true"
+                                                class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4 dark:text-gray-400">
+                                                <path
+                                                    d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                                    clip-rule="evenodd" fill-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-full">
+                                        <label for="street-address"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Street
+                                            address</label>
+                                        <div class="mt-2">
+                                            <input id="street-address" type="text" name="street-address"
+                                                autocomplete="street-address"
+                                                @idprefill.window="setInputText($el, '1 Raffles Place, #01-01, Block 1', 540)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-2 sm:col-start-1">
+                                        <label for="city"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">City</label>
+                                        <div class="mt-2">
+                                            <input id="city" type="text" name="city" autocomplete="address-level2"
+                                                @idprefill.window="setInputText($el, 'Singapore', 1180)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-2">
+                                        <label for="region"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">State /
+                                            Province</label>
+                                        <div class="mt-2">
+                                            <input id="region" type="text" name="region" autocomplete="address-level1"
+                                                @idprefill.window="setInputText($el, 'Singapore', 1360)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-2">
+                                        <label for="postal-code"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">ZIP /
+                                            Postal code</label>
+                                        <div class="mt-2">
+                                            <input id="postal-code" type="text" name="postal-code"
+                                                autocomplete="postal-code"
+                                                @idprefill.window="setInputText($el, '048616', 1540)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="mt-6 flex items-center justify-end gap-x-6">
+                            <button type="button" @click="$router.navigate('/payment'); window.scrollTo(0, 0);"
+                                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:focus-visible:outline-indigo-500">Next</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </template>
+
+        <template x-route="/payment" x-template>
+            <div class="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <header class="bg-white dark:bg-gray-900">
+                    <nav aria-label="Global" class="flex items-center justify-between pb-12">
+                        <div class="flex lg:flex-1">
+                            <a href="/" class="-m-1.5 p-1.5">
+                                <span class="sr-only">Mesh Payments</span>
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="size-8 text-indigo-600 dark:text-indigo-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                    </svg>
+                                    <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                        Payments</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="flex lg:hidden">
+                            <button type="button" command="show-modal" commandfor="mobile-menu"
+                                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                <span class="sr-only">Open main menu</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    data-slot="icon" aria-hidden="true" class="size-6">
+                                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                            <a href="/login" class="text-sm/6 font-semibold text-gray-900 dark:text-white">Log out
+                                <span aria-hidden="true">&rarr;</span></a>
+                        </div>
+                    </nav>
+                    <el-dialog>
+                        <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+                            <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                                <el-dialog-panel
+                                    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10">
+                                    <div class="flex items-center justify-between">
+                                        <a href="/" class="-m-1.5 p-1.5">
+                                            <span class="sr-only">Mesh Payments</span>
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor"
+                                                    class="size-8 text-indigo-600 dark:text-indigo-500">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                                </svg>
+                                                <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                                    Payments</span>
+                                            </div>
+                                        </a>
+                                        <button type="button" command="close" commandfor="mobile-menu"
+                                            class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                            <span class="sr-only">Close menu</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </el-dialog-panel>
+                            </div>
+                        </dialog>
+                    </el-dialog>
+                </header>
+
+                <div class="mx-auto max-w-3xl">
+                    <div @keyup.shift.space.window="$dispatch('transferprefill')"></div>
+                    <form>
+                        <div class="space-y-12">
+                            <div class="border-b border-gray-900/10 pb-12 dark:border-white/10">
+                                <h2 class="text-base/7 font-semibold text-gray-900 dark:text-white">Documents</h2>
+                                <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">Upload documents to prefill
+                                    your application.</p>
+                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div x-data="{ submitted: false }" class="sm:col-span-full">
+                                        <label for="transfer-document"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Transfer
+                                            form</label>
+                                        <div
+                                            class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 dark:border-white/25">
+                                            <div class="text-center">
+                                                <div x-show="!submitted">
+                                                    <svg viewBox="0 0 24 24" fill="currentColor" data-slot="icon"
+                                                        aria-hidden="true"
+                                                        class="mx-auto size-12 text-gray-300 dark:text-gray-600">
+                                                        <path
+                                                            d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
+                                                            clip-rule="evenodd" fill-rule="evenodd" />
+                                                    </svg>
+                                                    <div class="mt-4 flex text-sm/6 text-gray-600 dark:text-gray-400">
+                                                        <button type="button" command="show-modal"
+                                                            commandfor="transferDocDialog"
+                                                            class="relative cursor-pointer rounded-md bg-transparent font-semibold text-indigo-600 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:focus-within:outline-indigo-500 dark:hover:text-indigo-300">
+                                                            Upload a file
+                                                        </button>
+                                                        <p class="pl-1">or drag and drop</p>
+                                                    </div>
+                                                    <p class="text-xs/5 text-gray-600 dark:text-gray-400">PNG, JPG, GIF
+                                                        up to 10MB
+                                                    </p>
+                                                </div>
+                                                <div x-show="submitted">
+                                                    <div class="flex text-sm/6 text-gray-600 dark:text-gray-400">
+                                                        transfer_form.pdf
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <el-dialog>
+                                            <dialog id="transferDocDialog" x-ref="transferDocDialog"
+                                                aria-labelledby="dialog-title"
+                                                class="fixed inset-0 size-auto max-h-none max-w-none overflow-y-auto bg-transparent backdrop:bg-transparent">
+                                                <el-dialog-backdrop
+                                                    class="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in dark:bg-gray-900/50"></el-dialog-backdrop>
+
+                                                <div tabindex="0"
+                                                    class="flex min-h-full items-end justify-center p-4 text-center focus:outline-none sm:items-center sm:p-0">
+                                                    <el-dialog-panel
+                                                        class="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg sm:p-6 data-closed:sm:translate-y-0 data-closed:sm:scale-95 dark:bg-gray-800 dark:outline dark:-outline-offset-1 dark:outline-white/10">
+                                                        <div>
+                                                            <div
+                                                                class="mx-auto flex size-12 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/10">
+                                                                <svg viewBox="0 0 24 24" fill="none"
+                                                                    stroke="currentColor" stroke-width="1.5"
+                                                                    data-slot="icon" aria-hidden="true"
+                                                                    class="size-6 text-green-600 dark:text-green-400">
+                                                                    <path d="m4.5 12.75 6 6 9-13.5"
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round" />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="mt-3 text-center sm:mt-5">
+                                                                <h3 id="dialog-title"
+                                                                    class="text-base font-semibold text-gray-900 dark:text-white">
+                                                                    Form uploaded</h3>
+                                                                <div class="mt-2">
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        We'll pre-fill your application with the
+                                                                        information from your form.
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                                                            <button type="button" command="close"
+                                                                commandfor="transferDocDialog"
+                                                                @click="$dispatch('transferprefill'); submitted = true;"
+                                                                class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Ok</button>
+                                                            <button type="button" command="close"
+                                                                commandfor="transferDocDialog"
+                                                                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs inset-ring-1 inset-ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0 dark:bg-white/10 dark:text-white dark:shadow-none dark:inset-ring-white/5 dark:hover:bg-white/20">Cancel</button>
+                                                        </div>
+                                                    </el-dialog-panel>
+                                                </div>
+                                            </dialog>
+                                        </el-dialog>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-b border-gray-900/10 pb-12 dark:border-white/10">
+                                <h2 class="text-base/7 font-semibold text-gray-900 dark:text-white">Beneficiary
+                                    Information
+                                </h2>
+                                <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">Provide beneficiary's
+                                    personal information.</p>
+
+                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div class="sm:col-span-3">
+                                        <label for="first-name"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">First
+                                            name</label>
+                                        <div class="mt-2">
+                                            <input id="first-name" type="text" name="first-name"
+                                                autocomplete="given-name"
+                                                @transferprefill.window="setInputText($el, 'Jane')"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <label for="last-name"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Last
+                                            name</label>
+                                        <div class="mt-2">
+                                            <input id="last-name" type="text" name="last-name"
+                                                autocomplete="family-name"
+                                                @transferprefill.window="setInputText($el, 'Smith', 80)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-4">
+                                        <label for="email"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Email
+                                            address</label>
+                                        <div class="mt-2">
+                                            <input id="email" type="email" name="email" autocomplete="email"
+                                                @transferprefill.window="setInputText($el, 'jane.smith@example.com', 180)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <label for="country"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Country</label>
+                                        <div class="mt-2 grid grid-cols-1">
+                                            <select id="country" name="country" autocomplete="country-name"
+                                                class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-1.5 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:*:bg-gray-800 dark:focus:outline-indigo-500">
+                                                <option>Philippines</option>
+                                            </select>
+                                            <svg viewBox="0 0 16 16" fill="currentColor" data-slot="icon"
+                                                aria-hidden="true"
+                                                class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-gray-500 sm:size-4 dark:text-gray-400">
+                                                <path
+                                                    d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                                                    clip-rule="evenodd" fill-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-full">
+                                        <label for="street-address"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Street
+                                            address</label>
+                                        <div class="mt-2">
+                                            <input id="street-address" type="text" name="street-address"
+                                                autocomplete="street-address"
+                                                @transferprefill.window="setInputText($el, '123 Mabini Street, Barangay San Isidro', 620)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-2 sm:col-start-1">
+                                        <label for="city"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">City</label>
+                                        <div class="mt-2">
+                                            <input id="city" type="text" name="city" autocomplete="address-level2"
+                                                @transferprefill.window="setInputText($el, 'Quezon City', 1120)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-2">
+                                        <label for="region"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">State /
+                                            Province</label>
+                                        <div class="mt-2">
+                                            <input id="region" type="text" name="region" autocomplete="address-level1"
+                                                @transferprefill.window="setInputText($el, 'Metro Manila', 1340)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-2">
+                                        <label for="postal-code"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">ZIP /
+                                            Postal code</label>
+                                        <div class="mt-2">
+                                            <input id="postal-code" type="text" name="postal-code"
+                                                autocomplete="postal-code"
+                                                @transferprefill.window="setInputText($el, '1102', 1580)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-b border-gray-900/10 pb-12 dark:border-white/10">
+                                <h2 class="text-base/7 font-semibold text-gray-900 dark:text-white">Account
+                                    Information
+                                </h2>
+                                <p class="mt-1 text-sm/6 text-gray-600 dark:text-gray-400">Provide beneficiary's
+                                    account information.</p>
+
+                                <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                    <div class="sm:col-span-3">
+                                        <label for="bank"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Bank</label>
+                                        <div class="mt-2">
+                                            <input id="bank" type="text" name="bank"
+                                                @transferprefill.window="setInputText($el, 'Metrobank', 1660)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <label for="account-number"
+                                            class="block text-sm/6 font-medium text-gray-900 dark:text-white">Account
+                                            number</label>
+                                        <div class="mt-2">
+                                            <input id="account-number" type="text" name="account-number"
+                                                @transferprefill.window="setInputText($el, '1234567890', 1960)"
+                                                class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 dark:bg-white/5 dark:text-white dark:outline-white/10 dark:placeholder:text-gray-500 dark:focus:outline-indigo-500" />
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <div>
+                                            <label for="amount"
+                                                class="block text-sm/6 font-medium text-gray-900 dark:text-white">Amount</label>
+                                            <div class="mt-2">
+                                                <div
+                                                    class="flex items-center rounded-md bg-white px-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600 dark:bg-white/5 dark:outline-white/10 dark:focus-within:outline-indigo-500">
+                                                    <div
+                                                        class="shrink-0 text-base text-gray-500 select-none sm:text-sm/6 dark:text-gray-400">
+                                                        $</div>
+                                                    <input id="amount" type="text" name="amount" placeholder="0.00"
+                                                        aria-describedby="amount-currency"
+                                                        @transferprefill.window="setInputText($el, '1000.00', 2160)"
+                                                        class="block min-w-0 grow bg-white py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 dark:bg-transparent dark:text-white dark:placeholder:text-gray-500" />
+                                                    <div id="amount-currency"
+                                                        class="shrink-0 text-base text-gray-500 select-none sm:text-sm/6 dark:text-gray-400">
+                                                        SGD</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex items-center justify-end gap-x-6">
+                            <button type="button" @click="$router.navigate('/review'); window.scrollTo(0, 0);"
+                                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:focus-visible:outline-indigo-500">Next</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </template>
+
+        <template x-route="/review" x-template>
+            <div class="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <header class="bg-white dark:bg-gray-900">
+                    <nav aria-label="Global" class="flex items-center justify-between pb-12">
+                        <div class="flex lg:flex-1">
+                            <a href="/" class="-m-1.5 p-1.5">
+                                <span class="sr-only">Mesh Payments</span>
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="size-8 text-indigo-600 dark:text-indigo-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                    </svg>
+                                    <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                        Payments</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="flex lg:hidden">
+                            <button type="button" command="show-modal" commandfor="mobile-menu"
+                                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                <span class="sr-only">Open main menu</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    data-slot="icon" aria-hidden="true" class="size-6">
+                                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                            <a href="/login" class="text-sm/6 font-semibold text-gray-900 dark:text-white">Log out
+                                <span aria-hidden="true">&rarr;</span></a>
+                        </div>
+                    </nav>
+                    <el-dialog>
+                        <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+                            <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                                <el-dialog-panel
+                                    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10">
+                                    <div class="flex items-center justify-between">
+                                        <a href="/" class="-m-1.5 p-1.5">
+                                            <span class="sr-only">Mesh Payments</span>
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor"
+                                                    class="size-8 text-indigo-600 dark:text-indigo-500">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                                </svg>
+                                                <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                                    Payments</span>
+                                            </div>
+                                        </a>
+                                        <button type="button" command="close" commandfor="mobile-menu"
+                                            class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                            <span class="sr-only">Close menu</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </el-dialog-panel>
+                            </div>
+                        </dialog>
+                    </el-dialog>
+                </header>
+
+                <div class="mx-auto max-w-sm">
+                    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
+                        Confirm payment details</h2>
+
+                    <div class="lg:col-start-3 lg:row-end-1 mt-16">
+                        <h2 class="sr-only">Summary</h2>
+                        <div
+                            class="pb-6 rounded-lg bg-gray-50 shadow-xs outline-1 outline-gray-900/5 dark:bg-gray-800/50 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
+                            <dl class="flex flex-wrap">
+                                <div class="flex-auto pt-6 pl-6">
+                                    <dt class="text-sm/6 font-semibold text-gray-900 dark:text-gray-100">Amount</dt>
+                                    <dd class="mt-1 text-base font-semibold text-gray-900 dark:text-white">SGD 1,000.00
+                                    </dd>
+                                </div>
+                                <div
+                                    class="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6 dark:border-white/5">
+                                    <dt class="flex-none">
+                                        <span class="sr-only">Client</span>
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 text-gray-400">
+                                            <path
+                                                d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                    </dt>
+                                    <dd class="text-sm/6 font-medium text-gray-900 dark:text-white">John Doe</dd>
+                                </div>
+                                <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+                                    <dt class="flex-none">
+                                        <span class="sr-only">Due date</span>
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 text-gray-400">
+                                            <path
+                                                d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
+                                            <path
+                                                d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                    </dt>
+                                    <dd class="text-sm/6 text-gray-500 dark:text-gray-300">
+                                        <time x-text="new Date().toDateString()"></time>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-start-3 lg:row-end-1 mt-6">
+                        <div
+                            class="text-center text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white grid justify-items-center">
+                            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-start-3 lg:row-end-1 mt-6">
+                        <h2 class="sr-only">Summary</h2>
+                        <div
+                            class="pb-6 rounded-lg bg-gray-50 shadow-xs outline-1 outline-gray-900/5 dark:bg-gray-800/50 dark:shadow-none dark:-outline-offset-1 dark:outline-white/10">
+                            <dl class="flex flex-wrap">
+                                <div class="flex-auto pt-6 pl-6">
+                                    <dt class="text-sm/6 font-semibold text-gray-900 dark:text-gray-100">Amount</dt>
+                                    <dd class="mt-1 text-base font-semibold text-gray-900 dark:text-white">PHP 44,000.00
+                                    </dd>
+                                </div>
+                                <div
+                                    class="mt-6 flex w-full flex-none gap-x-4 border-t border-gray-900/5 px-6 pt-6 dark:border-white/5">
+                                    <dt class="flex-none">
+                                        <span class="sr-only">Client</span>
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 text-gray-400">
+                                            <path
+                                                d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Zm-5.5-2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10 12a5.99 5.99 0 0 0-4.793 2.39A6.483 6.483 0 0 0 10 16.5a6.483 6.483 0 0 0 4.793-2.11A5.99 5.99 0 0 0 10 12Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                    </dt>
+                                    <dd class="text-sm/6 font-medium text-gray-900 dark:text-white">Jane Smith</dd>
+                                </div>
+                                <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+                                    <dt class="flex-none">
+                                        <span class="sr-only">Due date</span>
+                                        <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true"
+                                            class="h-6 w-5 text-gray-400">
+                                            <path
+                                                d="M5.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H6a.75.75 0 0 1-.75-.75V12ZM6 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H6ZM7.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H8a.75.75 0 0 1-.75-.75V12ZM8 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H8ZM9.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V10ZM10 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H10ZM9.25 14a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H10a.75.75 0 0 1-.75-.75V14ZM12 9.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V10a.75.75 0 0 0-.75-.75H12ZM11.25 12a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H12a.75.75 0 0 1-.75-.75V12ZM12 13.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V14a.75.75 0 0 0-.75-.75H12ZM13.25 10a.75.75 0 0 1 .75-.75h.01a.75.75 0 0 1 .75.75v.01a.75.75 0 0 1-.75.75H14a.75.75 0 0 1-.75-.75V10ZM14 11.25a.75.75 0 0 0-.75.75v.01c0 .414.336.75.75.75h.01a.75.75 0 0 0 .75-.75V12a.75.75 0 0 0-.75-.75H14Z" />
+                                            <path
+                                                d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z"
+                                                clip-rule="evenodd" fill-rule="evenodd" />
+                                        </svg>
+                                    </dt>
+                                    <dd class="text-sm/6 text-gray-500 dark:text-gray-300">
+                                        <time x-text="new Date().toDateString()"></time>
+                                    </dd>
+                                </div>
+                                <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+                                    <dt class="flex-none">
+                                        <span class="sr-only">Bank</span>
+                                        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                            class="h-6 w-5 text-gray-400">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0 0 12 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75Z" />
+                                        </svg>
+                                    </dt>
+                                    <dd class="text-sm/6 text-gray-500 dark:text-gray-300">Metrobank</dd>
+                                </div>
+                                <div class="mt-4 flex w-full flex-none gap-x-4 px-6">
+                                    <dt class="flex-none">
+                                        <span class="sr-only">Account number</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="h-6 w-5 text-gray-400">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" />
+                                        </svg>
+                                    </dt>
+                                    <dd class="text-sm/6 text-gray-500 dark:text-gray-300">1234567890</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div>
+                        <button @click="$router.navigate('/status'); window.scrollTo(0, 0);"
+                            class="mt-10 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template x-route="/status" x-template>
+            <div class="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <header class="bg-white dark:bg-gray-900">
+                    <nav aria-label="Global" class="flex items-center justify-between pb-12">
+                        <div class="flex lg:flex-1">
+                            <a href="/" class="-m-1.5 p-1.5">
+                                <span class="sr-only">Mesh Payments</span>
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="size-8 text-indigo-600 dark:text-indigo-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                    </svg>
+                                    <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                        Payments</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="flex lg:hidden">
+                            <button type="button" command="show-modal" commandfor="mobile-menu"
+                                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                <span class="sr-only">Open main menu</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    data-slot="icon" aria-hidden="true" class="size-6">
+                                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                            <a href="/login" class="text-sm/6 font-semibold text-gray-900 dark:text-white">Log out
+                                <span aria-hidden="true">&rarr;</span></a>
+                        </div>
+                    </nav>
+                    <el-dialog>
+                        <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+                            <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                                <el-dialog-panel
+                                    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10">
+                                    <div class="flex items-center justify-between">
+                                        <a href="/" class="-m-1.5 p-1.5">
+                                            <span class="sr-only">Mesh Payments</span>
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor"
+                                                    class="size-8 text-indigo-600 dark:text-indigo-500">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                                </svg>
+                                                <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                                    Payments</span>
+                                            </div>
+                                        </a>
+                                        <button type="button" command="close" commandfor="mobile-menu"
+                                            class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                            <span class="sr-only">Close menu</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </el-dialog-panel>
+                            </div>
+                        </dialog>
+                    </el-dialog>
+                </header>
+
+                <div class="mx-auto max-w-3xl">
+                    <div
+                        class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800/50 dark:shadow-none dark:inset-ring dark:inset-ring-white/10">
+                        <div class="px-4 py-6 sm:px-6">
+                            <h3 class="text-base/7 font-semibold text-gray-900 dark:text-white">Payment status</h3>
+                            <p class="mt-1 max-w-2xl text-sm/6 text-gray-500 dark:text-gray-300">Realtime status of your
+                                payment.</p>
+                        </div>
+                        <div class="border-t border-gray-100 dark:border-white/5">
+                            <dl class="divide-y divide-gray-100 dark:divide-white/5">
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <dt class="text-sm font-medium text-gray-900 dark:text-gray-100">Transaction ID</dt>
+                                    <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-2 sm:mt-0 dark:text-gray-300">
+                                        497dcba3-ecbf-4587-a2dd-5eb0665e6880</dd>
+                                </div>
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <dt class="text-sm/6 font-medium text-gray-900 dark:text-gray-100">Status</dt>
+                                    <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0 dark:text-gray-100">
+
+                                        <div class="flow-root">
+                                            <ul role="list" class="-mb-8" x-data="{ index: 0 }"
+                                                x-init="setInterval(() => { if (index < 4) index++ }, 2000)">
+                                                <li>
+                                                    <div class="relative pb-8">
+                                                        <span aria-hidden="true"
+                                                            class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-white/10"></span>
+                                                        <div class="relative flex space-x-3">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-gray-400 ring-8 ring-white dark:bg-gray-600 dark:ring-gray-800/50">
+                                                                    <svg viewBox="0 0 20 20" fill="currentColor"
+                                                                        class="size-5 text-white">
+                                                                        <path
+                                                                            d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        <span
+                                                                            class="font-medium text-gray-900 dark:text-white">John
+                                                                            Doe</span> submitted their payment
+                                                                        application.
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li x-show="index >= 0" x-transition.opacity>
+                                                    <div class="relative pb-8">
+                                                        <span aria-hidden="true" x-show="index > 0"
+                                                            class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-white/10"></span>
+                                                        <div class="relative flex space-x-3" x-show="index <= 0">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-orange-500 ring-8 ring-white dark:ring-gray-800/50">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 20 20" fill="currentColor"
+                                                                        class="size-5 text-white">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M6 3.75A2.75 2.75 0 0 1 8.75 1h2.5A2.75 2.75 0 0 1 14 3.75v.443c.572.055 1.14.122 1.706.2C17.053 4.582 18 5.75 18 7.07v3.469c0 1.126-.694 2.191-1.83 2.54-1.952.599-4.024.921-6.17.921s-4.219-.322-6.17-.921C2.694 12.73 2 11.665 2 10.539V7.07c0-1.321.947-2.489 2.294-2.676A41.047 41.047 0 0 1 6 4.193V3.75Zm6.5 0v.325a41.622 41.622 0 0 0-5 0V3.75c0-.69.56-1.25 1.25-1.25h2.5c.69 0 1.25.56 1.25 1.25ZM10 10a1 1 0 0 0-1 1v.01a1 1 0 0 0 1 1h.01a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1H10Z"
+                                                                            clip-rule="evenodd" />
+                                                                        <path
+                                                                            d="M3 15.055v-.684c.126.053.255.1.39.142 2.092.642 4.313.987 6.61.987 2.297 0 4.518-.345 6.61-.987.135-.041.264-.089.39-.142v.684c0 1.347-.985 2.53-2.363 2.686a41.454 41.454 0 0 1-9.274 0C3.985 17.585 3 16.402 3 15.055Z" />
+                                                                    </svg>
+
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        Waiting for payment request.</p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="relative flex space-x-3" x-show="index > 0">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-green-500 ring-8 ring-white dark:ring-gray-800/50">
+                                                                    <svg viewBox="0 0 20 20" fill="currentColor"
+                                                                        data-slot="icon" aria-hidden="true"
+                                                                        class="size-5 text-white">
+                                                                        <path
+                                                                            d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                                            clip-rule="evenodd" fill-rule="evenodd" />
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        <span
+                                                                            class="font-medium text-gray-900 dark:text-white">Mesh</span>
+                                                                        received the payment request of SGD 1,000.00.
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li x-show="index >= 1" x-transition.opacity>
+                                                    <div class="relative pb-8">
+                                                        <span aria-hidden="true" x-show="index > 1"
+                                                            class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-white/10"></span>
+                                                        <div class="relative flex space-x-3" x-show="index <= 1">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-orange-500 ring-8 ring-white dark:ring-gray-800/50">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 20 20" fill="currentColor"
+                                                                        class="size-5 text-white">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M6 3.75A2.75 2.75 0 0 1 8.75 1h2.5A2.75 2.75 0 0 1 14 3.75v.443c.572.055 1.14.122 1.706.2C17.053 4.582 18 5.75 18 7.07v3.469c0 1.126-.694 2.191-1.83 2.54-1.952.599-4.024.921-6.17.921s-4.219-.322-6.17-.921C2.694 12.73 2 11.665 2 10.539V7.07c0-1.321.947-2.489 2.294-2.676A41.047 41.047 0 0 1 6 4.193V3.75Zm6.5 0v.325a41.622 41.622 0 0 0-5 0V3.75c0-.69.56-1.25 1.25-1.25h2.5c.69 0 1.25.56 1.25 1.25ZM10 10a1 1 0 0 0-1 1v.01a1 1 0 0 0 1 1h.01a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1H10Z"
+                                                                            clip-rule="evenodd" />
+                                                                        <path
+                                                                            d="M3 15.055v-.684c.126.053.255.1.39.142 2.092.642 4.313.987 6.61.987 2.297 0 4.518-.345 6.61-.987.135-.041.264-.089.39-.142v.684c0 1.347-.985 2.53-2.363 2.686a41.454 41.454 0 0 1-9.274 0C3.985 17.585 3 16.402 3 15.055Z" />
+                                                                    </svg>
+
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        Verifying payment details.</p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="relative flex space-x-3" x-show="index > 1">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-green-500 ring-8 ring-white dark:ring-gray-800/50">
+                                                                    <svg viewBox="0 0 20 20" fill="currentColor"
+                                                                        data-slot="icon" aria-hidden="true"
+                                                                        class="size-5 text-white">
+                                                                        <path
+                                                                            d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                                            clip-rule="evenodd" fill-rule="evenodd" />
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        Verified payment details.</p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li x-show="index >= 2" x-transition.opacity>
+                                                    <div class="relative pb-8">
+                                                        <span aria-hidden="true" x-show="index > 2"
+                                                            class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200 dark:bg-white/10"></span>
+                                                        <div class="relative flex space-x-3" x-show="index <= 2">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-orange-500 ring-8 ring-white dark:ring-gray-800/50">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 20 20" fill="currentColor"
+                                                                        class="size-5 text-white">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M6 3.75A2.75 2.75 0 0 1 8.75 1h2.5A2.75 2.75 0 0 1 14 3.75v.443c.572.055 1.14.122 1.706.2C17.053 4.582 18 5.75 18 7.07v3.469c0 1.126-.694 2.191-1.83 2.54-1.952.599-4.024.921-6.17.921s-4.219-.322-6.17-.921C2.694 12.73 2 11.665 2 10.539V7.07c0-1.321.947-2.489 2.294-2.676A41.047 41.047 0 0 1 6 4.193V3.75Zm6.5 0v.325a41.622 41.622 0 0 0-5 0V3.75c0-.69.56-1.25 1.25-1.25h2.5c.69 0 1.25.56 1.25 1.25ZM10 10a1 1 0 0 0-1 1v.01a1 1 0 0 0 1 1h.01a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1H10Z"
+                                                                            clip-rule="evenodd" />
+                                                                        <path
+                                                                            d="M3 15.055v-.684c.126.053.255.1.39.142 2.092.642 4.313.987 6.61.987 2.297 0 4.518-.345 6.61-.987.135-.041.264-.089.39-.142v.684c0 1.347-.985 2.53-2.363 2.686a41.454 41.454 0 0 1-9.274 0C3.985 17.585 3 16.402 3 15.055Z" />
+                                                                    </svg>
+
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        Sending PHP 44,000.00 to
+                                                                        <span
+                                                                            class="font-medium text-gray-900 dark:text-white">Jane
+                                                                            Smith</span>
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="relative flex space-x-3" x-show="index > 2">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-green-500 ring-8 ring-white dark:ring-gray-800/50">
+                                                                    <svg viewBox="0 0 20 20" fill="currentColor"
+                                                                        data-slot="icon" aria-hidden="true"
+                                                                        class="size-5 text-white">
+                                                                        <path
+                                                                            d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                                            clip-rule="evenodd" fill-rule="evenodd" />
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        Sent PHP 44,000.00 to
+                                                                        <span
+                                                                            class="font-medium text-gray-900 dark:text-white">Jane
+                                                                            Smith</span>
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li x-show="index >= 3" x-transition.opacity>
+                                                    <div class="relative pb-8">
+                                                        <div class="relative flex space-x-3" x-show="index <= 3">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-orange-500 ring-8 ring-white dark:ring-gray-800/50">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 20 20" fill="currentColor"
+                                                                        class="size-5 text-white">
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M6 3.75A2.75 2.75 0 0 1 8.75 1h2.5A2.75 2.75 0 0 1 14 3.75v.443c.572.055 1.14.122 1.706.2C17.053 4.582 18 5.75 18 7.07v3.469c0 1.126-.694 2.191-1.83 2.54-1.952.599-4.024.921-6.17.921s-4.219-.322-6.17-.921C2.694 12.73 2 11.665 2 10.539V7.07c0-1.321.947-2.489 2.294-2.676A41.047 41.047 0 0 1 6 4.193V3.75Zm6.5 0v.325a41.622 41.622 0 0 0-5 0V3.75c0-.69.56-1.25 1.25-1.25h2.5c.69 0 1.25.56 1.25 1.25ZM10 10a1 1 0 0 0-1 1v.01a1 1 0 0 0 1 1h.01a1 1 0 0 0 1-1V11a1 1 0 0 0-1-1H10Z"
+                                                                            clip-rule="evenodd" />
+                                                                        <path
+                                                                            d="M3 15.055v-.684c.126.053.255.1.39.142 2.092.642 4.313.987 6.61.987 2.297 0 4.518-.345 6.61-.987.135-.041.264-.089.39-.142v.684c0 1.347-.985 2.53-2.363 2.686a41.454 41.454 0 0 1-9.274 0C3.985 17.585 3 16.402 3 15.055Z" />
+                                                                    </svg>
+
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        Waiting for confirmation.
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="relative flex space-x-3" x-show="index > 3">
+                                                            <div>
+                                                                <span
+                                                                    class="flex size-8 items-center justify-center rounded-full bg-green-500 ring-8 ring-white dark:ring-gray-800/50">
+                                                                    <svg viewBox="0 0 20 20" fill="currentColor"
+                                                                        data-slot="icon" aria-hidden="true"
+                                                                        class="size-5 text-white">
+                                                                        <path
+                                                                            d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z"
+                                                                            clip-rule="evenodd" fill-rule="evenodd" />
+                                                                    </svg>
+                                                                </span>
+                                                            </div>
+                                                            <div
+                                                                class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                                                                <div>
+                                                                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                                        <span
+                                                                            class="font-medium text-gray-900 dark:text-white">Jane
+                                                                            Smith</span> has received PHP 44,000.00.
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    class="text-right text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                                    <time x-text="new Date().toDateString()"></time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <button @click="$router.navigate('/list')"
+                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">Past
+                                transfers</button>
+
+                            <button @click="$router.navigate('/personal')"
+                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:shadow-none dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">New
+                                transfer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template x-route="/list" x-template>
+            <div class="py-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <header class="bg-white dark:bg-gray-900">
+                    <nav aria-label="Global" class="flex items-center justify-between pb-12">
+                        <div class="flex lg:flex-1">
+                            <a href="/" class="-m-1.5 p-1.5">
+                                <span class="sr-only">Mesh Payments</span>
+                                <div class="flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor"
+                                        class="size-8 text-indigo-600 dark:text-indigo-500">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                    </svg>
+                                    <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                        Payments</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="flex lg:hidden">
+                            <button type="button" command="show-modal" commandfor="mobile-menu"
+                                class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                <span class="sr-only">Open main menu</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    data-slot="icon" aria-hidden="true" class="size-6">
+                                    <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                            <a href="/login" class="text-sm/6 font-semibold text-gray-900 dark:text-white">Log out
+                                <span aria-hidden="true">&rarr;</span></a>
+                        </div>
+                    </nav>
+                    <el-dialog>
+                        <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+                            <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                                <el-dialog-panel
+                                    class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 dark:bg-gray-900 dark:sm:ring-gray-100/10">
+                                    <div class="flex items-center justify-between">
+                                        <a href="/" class="-m-1.5 p-1.5">
+                                            <span class="sr-only">Mesh Payments</span>
+                                            <div class="flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor"
+                                                    class="size-8 text-indigo-600 dark:text-indigo-500">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+                                                </svg>
+                                                <span class="pl-2 font-extrabold text-gray-900 dark:text-white">Mesh
+                                                    Payments</span>
+                                            </div>
+                                        </a>
+                                        <button type="button" command="close" commandfor="mobile-menu"
+                                            class="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-400">
+                                            <span class="sr-only">Close menu</span>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="1.5" data-slot="icon" aria-hidden="true" class="size-6">
+                                                <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round"
+                                                    stroke-linejoin="round" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </el-dialog-panel>
+                            </div>
+                        </dialog>
+                    </el-dialog>
+                </header>
+
+                <div class="mx-auto max-w-7xl">
+                    <div class="px-4 sm:px-6 lg:px-8">
+                        <div class="sm:flex sm:items-center">
+                            <div class="sm:flex-auto">
+                                <h1 class="text-base font-semibold text-gray-900 dark:text-white">Transactions</h1>
+                                <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">A list of all past transactions
+                                    including transaction ID, sender, receiver, amount and status.</p>
+                            </div>
+                            <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                                <button @click="$router.navigate('/personal')" type="button"
+                                    class="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-400 dark:focus-visible:outline-indigo-500">New
+                                    transfer</button>
+                            </div>
+                        </div>
+                        <div class="mt-8 flow-root">
+                            <div class="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
+                                <div class="inline-block min-w-full py-2 align-middle">
+                                    <table class="min-w-full border-separate border-spacing-0">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 border-b border-gray-300 bg-white/75 py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 backdrop-blur-sm backdrop-filter sm:pl-6 lg:pl-8 dark:border-white/15 dark:bg-gray-900/75 dark:text-white">
+                                                    Transaction ID</th>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 hidden border-b border-gray-300 bg-white/75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur-sm backdrop-filter sm:table-cell dark:border-white/15 dark:bg-gray-900/75 dark:text-white">
+                                                    Sender</th>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 hidden border-b border-gray-300 bg-white/75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur-sm backdrop-filter lg:table-cell dark:border-white/15 dark:bg-gray-900/75 dark:text-white">
+                                                    Receiver</th>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 border-b border-gray-300 bg-white/75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur-sm backdrop-filter dark:border-white/15 dark:bg-gray-900/75 dark:text-white">
+                                                    Amount</th>
+                                                <th scope="col"
+                                                    class="sticky top-0 z-10 border-b border-gray-300 bg-white/75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur-sm backdrop-filter dark:border-white/15 dark:bg-gray-900/75 dark:text-white">
+                                                    Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td
+                                                    class="border-b border-gray-200 py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8 dark:border-white/10 dark:text-white">
+                                                    a3f2b8c1-4d5e-6f7a-8b9c-0d1e2f3a4b5c</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 sm:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Alice Johnson</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Bob Smith</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    $250.00</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    <span
+                                                        class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-900/30 dark:text-green-400 dark:ring-green-500/50">Completed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="border-b border-gray-200 py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8 dark:border-white/10 dark:text-white">
+                                                    b5c6d7e8-9f0a-1b2c-3d4e-5f6a7b8c9d0e</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 sm:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Charlie Davis</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Diana Martinez</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    $1,450.50</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    <span
+                                                        class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-900/30 dark:text-green-400 dark:ring-green-500/50">Completed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="border-b border-gray-200 py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8 dark:border-white/10 dark:text-white">
+                                                    c7d8e9f0-1a2b-3c4d-5e6f-7a8b9c0d1e2f</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 sm:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Emma Wilson</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Frank Anderson</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    $75.25</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    <span
+                                                        class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-700 ring-1 ring-yellow-600/20 ring-inset dark:bg-yellow-900/30 dark:text-yellow-400 dark:ring-yellow-500/50">Pending</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="border-b border-gray-200 py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8 dark:border-white/10 dark:text-white">
+                                                    d9e0f1a2-3b4c-5d6e-7f8a-9b0c1d2e3f4a</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 sm:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Grace Thompson</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Henry Lee</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    $3,200.00</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    <span
+                                                        class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-900/30 dark:text-green-400 dark:ring-green-500/50">Completed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="border-b border-gray-200 py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8 dark:border-white/10 dark:text-white">
+                                                    e1f2a3b4-5c6d-7e8f-9a0b-1c2d3e4f5a6b</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 sm:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Isabella Garcia</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Jack Robinson</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    $500.00</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    <span
+                                                        class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/20 ring-inset dark:bg-red-900/30 dark:text-red-400 dark:ring-red-500/50">Failed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="border-b border-gray-200 py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8 dark:border-white/10 dark:text-white">
+                                                    f3a4b5c6-7d8e-9f0a-1b2c-3d4e5f6a7b8c</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 sm:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Kevin White</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Laura Harris</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    $125.75</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    <span
+                                                        class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-700 ring-1 ring-yellow-600/20 ring-inset dark:bg-yellow-900/30 dark:text-yellow-400 dark:ring-yellow-500/50">Pending</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="border-b border-gray-200 py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8 dark:border-white/10 dark:text-white">
+                                                    a5b6c7d8-9e0f-1a2b-3c4d-5e6f7a8b9c0d</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 sm:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Michael Brown</td>
+                                                <td
+                                                    class="hidden border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell dark:border-white/10 dark:text-gray-400">
+                                                    Nancy Clark</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    $890.00</td>
+                                                <td
+                                                    class="border-b border-gray-200 px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:border-white/10 dark:text-gray-400">
+                                                    <span
+                                                        class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-900/30 dark:text-green-400 dark:ring-green-500/50">Completed</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td
+                                                    class="py-4 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-6 lg:pl-8 dark:text-white">
+                                                    b7c8d9e0-1f2a-3b4c-5d6e-7f8a9b0c1d2e</td>
+                                                <td
+                                                    class="hidden px-3 py-4 text-sm whitespace-nowrap text-gray-500 sm:table-cell dark:text-gray-400">
+                                                    Olivia Taylor</td>
+                                                <td
+                                                    class="hidden px-3 py-4 text-sm whitespace-nowrap text-gray-500 lg:table-cell dark:text-gray-400">
+                                                    Paul Walker</td>
+                                                <td
+                                                    class="px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                    $2,150.50</td>
+                                                <td
+                                                    class="px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400">
+                                                    <span
+                                                        class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset dark:bg-green-900/30 dark:text-green-400 dark:ring-green-500/50">Completed</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template x-route="notfound" x-template>
+            <h1>404 - Not Found</h1>
+            <button @click="$history.back()">Go Back</button>
+        </template>
+
+        <script>
+            function setInputText(el, target, initialDelay = 0, delay = 20) {
+                if (el.value === target) return;
+
+                if (el.dataset.typing === '1') return;
+                el.dataset.typing = '1';
+
+                el.value = '';
+                let i = 0;
+
+                const startTyping = () => {
+                    const timer = setInterval(() => {
+                        if (el.value !== target.slice(0, i)) {
+                            clearInterval(timer);
+                            delete el.dataset.typing;
+                            return;
+                        }
+
+                        el.value += target[i];
+                        i += 1;
+
+                        if (i >= target.length) {
+                            clearInterval(timer);
+                            delete el.dataset.typing;
+                        }
+                    }, delay);
+                };
+
+                if (initialDelay > 0) {
+                    setTimeout(() => startTyping(), initialDelay);
+                } else {
+                    startTyping();
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>
